@@ -1,0 +1,6 @@
+quart
+quart-cors
+googleapiclient.discovery
+google_auth_oauthlib.flow
+datetime
+dateutil.parser
