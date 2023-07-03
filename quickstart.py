@@ -27,11 +27,11 @@ def get_credentials():
     return creds
 
 
-def get_events(service):
+def get_events(service, maxResults=10):
     now = datetime.datetime.utcnow().isoformat() + 'Z'
     events_result = service.events().list(
         calendarId='primary', timeMin=now,
-        maxResults=10, singleEvents=True,
+        maxResults=maxResults, singleEvents=True,
         orderBy='startTime').execute()
     return events_result.get('items', [])
 
@@ -50,10 +50,11 @@ def print_events(events):
 
 def main():
     try:
+        maxResults = 5
         creds = get_credentials()
         service = build('calendar', 'v3', credentials=creds)
-        print('Getting the upcoming 10 events')
-        events = get_events(service)
+        print('Getting the upcoming {} events'.format(maxResults))
+        events = get_events(service, maxResults)
         print_events(events)
     except HttpError as error:
         print(f'An error occurred: {error}')
