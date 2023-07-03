@@ -61,16 +61,41 @@ def get_free_slots():
         ).execute()
         events = events_result.get('items', [])
 
-        free_slots = []
-        start_time = start_time
+        busy_times = []
         for event in events:
+            start = dateutil.parser.parse(event['start'].get('dateTime'))
             end = dateutil.parser.parse(event['end'].get('dateTime'))
-            if (end - start_time).total_seconds() / 3600 >= DURATION:
-                free_slots.append((start_time, end))
-            start_time = dateutil.parser.parse(event['start'].get('dateTime'))
+            busy_times.append((start, end))
 
-        if (end_time - start_time).total_seconds() / 3600 >= DURATION:
-            free_slots.append((start_time, end_time))
+        # Sort the busy times by their start time
+        busy_times.sort(key=lambda x: x[0])
+
+        # Merge overlapping busy times
+        merged_busy_times = [busy_times[0]]
+        for current_start, current_end in busy_times[1:]:
+            last_end = merged_busy_times[-1][1]
+            # If the current and last busy times overlap, extend the current busy time
+            if current_start <= last_end:
+                merged_busy_times[-1] = (merged_busy_times[-1][0], max(last_end, current_end))
+            else:
+                # Add the current busy time
+                merged_busy_times.append((current_start, current_end))
+
+        # Find the free slots
+        free_slots = []
+        for i in range(len(merged_busy_times) - 1):
+            free_start = merged_busy_times[i][1]
+            free_end = merged_busy_times[i + 1][0]
+            if free_end > free_start + datetime.timedelta(hours=DURATION):
+                free_slots.append((free_start, free_end))
+
+        # Check the start of the day
+        if start_time + timedelta(hours=DURATION) <= merged_busy_times[0][0]:
+            free_slots.insert(0, (start_time, merged_busy_times[0][0]))
+
+        # Check the end of the day
+        if end_time >= merged_busy_times[-1][1] + timedelta(hours=DURATION):
+            free_slots.append((merged_busy_times[-1][1], end_time))
 
         return free_slots
 
@@ -82,7 +107,8 @@ def get_free_slots():
 def main():
     free_slots = get_free_slots()
     for slot in free_slots:
-        print("Free slot:", slot[0], " - ", slot[1], slot[1] - slot[0])
+        print("Free slot: {} - {} {}".format(slot[0], slot[1], slot[1] - slot[0]))
+
 
 
 if __name__ == '__main__':
