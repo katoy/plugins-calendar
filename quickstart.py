@@ -41,9 +41,10 @@ def main():
         # Call the Calendar API
         now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
         print('Getting the upcoming 10 events')
-        events_result = service.events().list(calendarId='primary', timeMin=now,
-                                              maxResults=10, singleEvents=True,
-                                              orderBy='startTime').execute()
+        events_result = service.events().list(
+            calendarId='primary', timeMin=now,
+            maxResults=10, singleEvents=True,
+            orderBy='startTime').execute()
         events = events_result.get('items', [])
 
         if not events:
@@ -52,8 +53,10 @@ def main():
 
         # Prints the start and name of the next 10 events
         for event in events:
-            start = event['start'].get('dateTime', event['start'].get('date'))
-            print(start, event['summary'])
+            start_at = event['start'].get(
+                'dateTime', event['start'].get('date'))
+            end_at = event['end'].get('dateTime', event['end'].get('date'))
+            print("{} - {} '{}'".format(start_at, end_at, event.get('summary', '')))
 
     except HttpError as error:
         print('An error occurred: %s' % error)
