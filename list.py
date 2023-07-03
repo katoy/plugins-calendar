@@ -11,6 +11,7 @@ from googleapiclient.errors import HttpError
 
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
+
 def authenticate():
     creds = None
     if os.path.exists('token.json'):
@@ -19,11 +20,13 @@ def authenticate():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
     return creds
+
 
 def get_events(service, calendar_id, start_time, end_time):
     events_result = service.events().list(
@@ -35,6 +38,7 @@ def get_events(service, calendar_id, start_time, end_time):
     ).execute()
     return events_result.get('items', [])
 
+
 def get_busy_times(events):
     busy_times = []
     for event in events:
@@ -44,15 +48,18 @@ def get_busy_times(events):
     busy_times.sort(key=lambda x: x[0])
     return busy_times
 
+
 def merge_busy_times(busy_times):
     merged_busy_times = [busy_times[0]]
     for current_start, current_end in busy_times[1:]:
         last_end = merged_busy_times[-1][1]
         if current_start <= last_end:
-            merged_busy_times[-1] = (merged_busy_times[-1][0], max(last_end, current_end))
+            merged_busy_times[-1] = (merged_busy_times[-1]
+                                     [0], max(last_end, current_end))
         else:
             merged_busy_times.append((current_start, current_end))
     return merged_busy_times
+
 
 def get_free_slots(merged_busy_times, start_time, end_time, duration):
     free_slots = []
@@ -67,6 +74,7 @@ def get_free_slots(merged_busy_times, start_time, end_time, duration):
         free_slots.append((merged_busy_times[-1][1], end_time))
     return free_slots
 
+
 def main():
     date = "2023-07-04"
     duration = 1
@@ -80,11 +88,14 @@ def main():
         events = get_events(service, calendar_id, start_time, end_time)
         busy_times = get_busy_times(events)
         merged_busy_times = merge_busy_times(busy_times)
-        free_slots = get_free_slots(merged_busy_times, start_time, end_time, duration)
+        free_slots = get_free_slots(
+            merged_busy_times, start_time, end_time, duration)
         for slot in free_slots:
-            print("Free slot: {} - {} {}".format(slot[0], slot[1], slot[1] - slot[0]))
+            print(
+                "Free slot: {} - {} {}".format(slot[0], slot[1], slot[1] - slot[0]))
     except HttpError as error:
         print('An error occurred: %s' % error)
+
 
 if __name__ == '__main__':
     main()
