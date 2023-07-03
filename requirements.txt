@@ -1,6 +1,11 @@
 quart
 quart-cors
-googleapiclient.discovery
-google_auth_oauthlib.flow
 datetime
 dateutil.parser
+
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+google-api-python-client
+python-dateutil
+pytz
