@@ -1,0 +1,59 @@
+openapi: 3.0.1
+info:
+  title: Google Calendar API
+  version: "v1"
+servers:
+  - url: PLUGIN_HOSTNAME
+paths:
+  /logout:
+    get:
+      operationId: logout
+      summary: remove token for private calendar
+      responses:
+        '200':
+          description: 成功
+  /events:
+    get:
+      operationId: getEvents
+      summary: Get events from private calendar
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventList'
+        '400':
+          description: リクエストが不正です。
+        '401':
+          description: 認証に失敗しました。
+        '404':
+          description: カレンダーが見つかりませんでした。
+components:
+  schemas:
+    EventList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the event
+        summary:
+          type: string
+          description: A short summary of the event
+        start:
+          $ref: '#/components/schemas/EventDateTime'
+        end:
+          $ref: '#/components/schemas/EventDateTime'
+    EventDateTime:
+      type: object
+      properties:
+        dateTime:
+          type: string
+          description: The start/end time of the event in RFC3339 format

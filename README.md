@@ -10,7 +10,7 @@ pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-
 
 prompt for ChatGCP-4
 ```plain
-Google Calendar API を使って指定した長さの時間の予定を新たに登録できるかを判定する  python  プログラムを示してください。
+Google Calendar API を使って指定した長さの時間の予定を新たに登録できるかを判定する python プログラムを示してください。
 登録が可能な場合は、その候補の時間帯を全て示してください。登録はしないでください。
 ```
 
@@ -20,6 +20,33 @@ Google Calendar API を使って指定した長さの時間の予定を新たに
 
 ```plain
 次のコードをリファクタリングしてください。
+```
+
+```plain
+google calendr api を使って予定を検索する ChatGPT 4 のプラグインのソースコードを示してください。
+openapi.yaml, ai-plugin.json の内容も示してください、
+ユーザーがプラグインをインストールするときに、google 認証を行うようにしてください。
+
+python , quartを使ってください。
+main.py には, 次のメソッドも含めてください。
+async def plugin_logo():
+async def openapi_spec():
+async def plugin_manifest():
+
+
+検索方法は、期間指定、タイトルに含まれる文字列とします。
+
+chartgpt のプラグインの作成方法については、https://platform.openai.com/docs/plugins/getting-started　を参照してください。
+これに倣ってコードを作ってください。
+google 認証 (OAuth2 の利用) をする部分を省略せずに示してください。
+
+timenavi という ghatgpt の plugin では、
+plugin のインストール時にgoogle の認証画面が現れます。
+これと同様の動作にしてください。
+```
+
+```plain
+このコードを実行する前の手順 (credentials.json のダウンロードまで) を step by step で説明してください。
 ```
 
 ## example
@@ -39,6 +66,16 @@ Free slot: 2023-07-04 15:30:00+09:00 - 2023-07-05 00:00:00+00:00 17:30:00
 
 ```
 
+## plugin の作成
+
+### google pauth の設定
+
+TODO
+
+### Google ぁレンダーアクセス
+
+TODO
+
 ## See
 
 - https://developers.google.com/calendar/api/quickstart/python?hl=ja
@@ -46,3 +83,6 @@ Free slot: 2023-07-04 15:30:00+09:00 - 2023-07-05 00:00:00+00:00 17:30:00
 
 - https://weekly.ascii.jp/elem/000/004/140/4140826/
   ChatGPTでプログラミングのフラット化がはじまっている
+
+- https://www.youtube.com/watch?v=-tQ-F9loc3g
+  How to setup OAuth for ChatGPT Plugin (sign in with Google)

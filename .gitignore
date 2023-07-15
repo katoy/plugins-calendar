@@ -5,9 +5,12 @@ __pycache__/
 
 .vscode/
 
+.well-known/ai-plugin.json
+
 # GCP
 credentials.json
 token.json
+tokens/
 
 # C extensions
 *.so

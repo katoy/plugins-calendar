@@ -1,0 +1,25 @@
+{
+    "schema_version": "v1",
+    "name_for_human": "sample_000A",
+    "name_for_model": "sample_000A",
+    "description_for_human": "google calendar",
+    "description_for_model": "sample_000A is a plugin that is blazing fast, super cool and easy to use.",
+    "auth": {
+        "authorization_content_type": "application/json",
+        "authorization_url": "https://auth.pluginlab.ai/oauth/token",
+        "client_url": "https://xxxxxxxxxxxx.auth.portal-pluginlab.ai/oauth/authorize",
+        "scope": "all",
+        "type": "oauth",
+        "verification_tokens": {
+            "openai": ""
+        }
+    },
+    "api": {
+        "is_user_authenticated": false,
+        "type": "openapi",
+        "url": "PLUGIN_HOSTNAME/openapi.yaml"
+    },
+    "logo_url": "https://avatars.githubusercontent.com/u/11354?v=4",
+    "contact_email": "youichikato@gmail.com",
+    "legal_info_url": "LUGIN_HOSTNAME/logo.png"
+}
