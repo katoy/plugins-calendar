@@ -19,7 +19,7 @@
         "type": "openapi",
         "url": "PLUGIN_HOSTNAME/openapi.yaml"
     },
-    "logo_url": "https://avatars.githubusercontent.com/u/11354?v=4",
+    "logo_url": "PLUGIN_HOSTNAME/logo.png",
     "contact_email": "youichikato@gmail.com",
-    "legal_info_url": "LUGIN_HOSTNAME/logo.png"
+    "legal_info_url": "https://github.com/katoy/plugins-calendar"
 }

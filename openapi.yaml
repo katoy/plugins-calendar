@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: Google Calendar API
+  title: Private Calendar API
   version: "v1"
 servers:
   - url: PLUGIN_HOSTNAME
