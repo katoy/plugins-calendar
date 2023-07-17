@@ -77,9 +77,9 @@ TODO
 TODO
 
 ## movies
-<https://github.com/katoy/plugins-calendar/blob/main/movies/install.mp4>
+https://github.com/katoy/plugins-calendar/blob/main/movies/install.mp4
 
-<https://github.com/katoy/plugins-calendar/blob/main/movies/auth-google.mp4>
+https://github.com/katoy/plugins-calendar/blob/main/movies/auth-google.mp4
 
 
 ## See
