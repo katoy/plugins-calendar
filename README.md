@@ -77,10 +77,12 @@ TODO
 TODO
 
 ## movies
-https://github.com/katoy/plugins-calendar/blob/main/movies/install.mp4
 
-https://github.com/katoy/plugins-calendar/blob/main/movies/auth-google.mp4
+- プラグインのインストール時
+https://github.com/katoy/plugins-calendar/assets/11354/ba148648-d916-4b1e-aa43-727de5d75b38
 
+- giigle calendar アクセス時
+https://github.com/katoy/plugins-calendar/assets/11354/7a4b278d-5556-4cc7-a7c2-e4d45dd7476b
 
 ## See
 
